@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Aspectos A Mejorar En El Código De La Práctica | Mi blog de prueba de PAW</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Aspectos A Mejorar En El Código De La Práctica" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Codificación de la capa de persistencia" />
+<meta property="og:description" content="Codificación de la capa de persistencia" />
+<link rel="canonical" href="https://frangaiz.github.io/paw/2022/05/12/Aspectos-a-mejorar-en-el-c%C3%B3digo-de-la-pr%C3%A1ctica.html" />
+<meta property="og:url" content="https://frangaiz.github.io/paw/2022/05/12/Aspectos-a-mejorar-en-el-c%C3%B3digo-de-la-pr%C3%A1ctica.html" />
+<meta property="og:site_name" content="Mi blog de prueba de PAW" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-05-12T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Aspectos A Mejorar En El Código De La Práctica" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-12T00:00:00-05:00","datePublished":"2022-05-12T00:00:00-05:00","description":"Codificación de la capa de persistencia","headline":"Aspectos A Mejorar En El Código De La Práctica","mainEntityOfPage":{"@type":"WebPage","@id":"https://frangaiz.github.io/paw/2022/05/12/Aspectos-a-mejorar-en-el-c%C3%B3digo-de-la-pr%C3%A1ctica.html"},"url":"https://frangaiz.github.io/paw/2022/05/12/Aspectos-a-mejorar-en-el-c%C3%B3digo-de-la-pr%C3%A1ctica.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/paw/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://frangaiz.github.io/paw/feed.xml" title="Mi blog de prueba de PAW" /><link rel="shortcut icon" type="image/x-icon" href="/paw/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/paw/">Mi blog de prueba de PAW</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/paw/about/">About Me</a><a class="page-link" href="/paw/search/">Search</a><a class="page-link" href="/paw/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Aspectos A Mejorar En El Código De La Práctica</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-12T00:00:00-05:00" itemprop="datePublished">
+        May 12, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      7 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="codificación-de-la-capa-de-persistencia">Codificación de la capa de persistencia</h1>
+
+<h2 id="implementación-muy-ineficiente-del-método-getpaginadorarticulos">Implementación muy ineficiente del método getPaginadorArticulos()</h2>
+
+<p>Algunos de vosotros habéis implementado el método getPaginadorArticulos llamando al método getArticulos() de la clase paw.bd.GestorBD que yo os proporcionaba, para recuperar la lista de todos los artículos y luego usar el tamaño de esa lista para construir el paginador.</p>
+
+<p>public static Paginador getPaginadorArticulos<strong>(</strong>int tamanioPagina<strong>)</strong> <strong>throws</strong> ExcepcionDeAplicacion <strong>{</strong></p>
+
+<p>paw<strong>.</strong>bd<strong>.</strong>GestorBD s <strong>=</strong> <strong>new</strong> paw<strong>.</strong>bd<strong>.</strong>GestorBD<strong>();</strong></p>
+
+<p>int registros <strong>=</strong> s<strong>.</strong>getArticulos<strong>().</strong>size<strong>();</strong></p>
+
+<p><strong>return</strong> <strong>new</strong> Paginador<strong>(</strong>registros<strong>,</strong> tamanioPagina<strong>);</strong></p>
+
+<p><strong>}</strong></p>
+
+<p>Es una solución muy ineficiente porque, lo que se podría hacer con una consulta muy simple (“select count(*) from articulo”), lo estáis resolviendo con una consulta que recupera los datos de todos los artículos de la BD (447) y construye un montón de objetos (447). La solución es cómoda para el programador, pero muy ineficiente para la aplicación (“lo que hará que vuestro jefe se vuelva a disgustar mucho”).</p>
+
+<h2 id="otra-implementación-ineficiente-del-método-getpaginadorarticulos">Otra implementación ineficiente del método getPaginadorArticulos()</h2>
+
+<p>Esta es un poco menos ineficiente que la anterior, pero también es criticable. Algunos de vosotros habéis implementado el método getPaginadorArticulos haciendo una consulta “select codigo from articulo” y contando luego el número de códigos obtenidos.</p>
+
+<p>int numArticulos <strong>=</strong> 0<strong>;</strong></p>
+
+<p>Statement stmt <strong>=</strong> con<strong>.</strong>createStatement<strong>();</strong></p>
+
+<p>ResultSet rs <strong>=</strong> stmt<strong>.</strong>executeQuery<strong>(</strong>“SELECT CODIGO FROM ARTICULO”<strong>);</strong></p>
+
+<p><strong>while (</strong>rs<strong>.</strong>next<strong>())</strong> <strong>{</strong></p>
+
+<p>numArticulos<strong>++;</strong></p>
+
+<p><strong>}</strong></p>
+
+<p>Es una solución ineficiente porque el conteo de los artículos lo hace de forma mucho más eficiente el SGBD, usando count(*): “select count(*) from articulo”. El SGBD cuenta mucho más rápido que Java. Esta optimizado para ello.</p>
+
+<p>int numArticulos <strong>=</strong> 0<strong>;</strong></p>
+
+<p>Statement stmt <strong>=</strong> con<strong>.</strong>createStatement<strong>();</strong></p>
+
+<p>ResultSet rs <strong>=</strong> stmt<strong>.</strong>executeQuery<strong>(</strong>“SELECT count(*) FROM ARTICULO”<strong>);</strong></p>
+
+<p><strong>if (</strong>rs<strong>.</strong>next<strong>())</strong> <strong>{</strong></p>
+
+<p>numArticulos <strong>=</strong> rs.getInt(1)<strong>;</strong></p>
+
+<p><strong>}</strong></p>
+
+<h1 id="programación-en-general">Programación en general</h1>
+
+<h2 id="conversión-de-cadenas-a-números">Conversión de cadenas a números</h2>
+
+<p>No se puede presuponer nada en informática. Por ejemplo, no se puede presuponer que el parámetro de configuración del tamaño de la página en catalogo.jsp vaya a estar bien escrito (con “forma” de número), ni que en la petición a catalogo.jsp vayamos a recibir un parámetro de página que sea un número.</p>
+
+<p>Por ello, las conversiones de texto a número que se hacen en la página catalogo.jsp deben estar dentro de un bloque try-catch, procurando que, si ocurriese algún error, las variables numéricas tomasen algún valor seguro:</p>
+
+<p>int tamanioPagina <strong>=</strong> 15<strong>;</strong></p>
+
+<p><strong>try</strong> <strong>{</strong></p>
+
+<p>tamanioPagina <strong>=</strong> Integer<strong>.</strong>parseInt<strong>(this.</strong>getInitParameter<strong>(</strong>“tamnioPagina”<strong>));</strong></p>
+
+<p><strong>}</strong> <strong>catch</strong> <strong>(</strong>Exception e<strong>)</strong> <strong>{</strong></p>
+
+<p><strong>}</strong></p>
+
+<p>…</p>
+
+<p>int pagina <strong>=</strong> 1<strong>;</strong></p>
+
+<p><strong>try</strong> <strong>{</strong></p>
+
+<p>pagina <strong>=</strong> Integer<strong>.</strong>parseInt<strong>(</strong>request<strong>.</strong>getParameter<strong>(</strong>“pag”<strong>));</strong></p>
+
+<p><strong>}</strong> <strong>catch</strong> <strong>(</strong>NumberFormatException ex<strong>)</strong> <strong>{</strong></p>
+
+<p><strong>}</strong></p>
+
+<h2 id="uso-de-métodos-static-no-hay-que-construir-objetos">Uso de métodos static: no hay que construir objetos</h2>
+
+<p>Os pedía que hicieseis una clase (sol.GestorBD) con dos métodos static</p>
+
+<blockquote>
+  <p>public static List<strong>&lt;</strong>Articulo<strong>&gt;</strong> getArticulos<strong>(</strong>int pagina<strong>,</strong> int tamanioPagina<strong>)</strong> <strong>throws</strong> ExcepcionDeAplicacion</p>
+
+  <p>public static Paginador getPaginadorArticulos<strong>(</strong>int tamanioPagina<strong>)</strong> <strong>throws</strong> ExcepcionDeAplicacion</p>
+</blockquote>
+
+<p>Para usar esos métodos no hay que crear ningún objeto de la clase.</p>
+
+<blockquote>
+  <p>sol<strong>.</strong>GestorBD gbd2 <strong>=</strong> <strong>new</strong> sol<strong>.</strong>GestorBD<strong>(); NO</strong></p>
+
+  <p>gbd2<strong>.</strong>getPaginadorArticulos<strong>(…</strong></p>
+</blockquote>
+
+<p>Se usan directamente sobre el nombre de la clase, como cualquier otra cosa que sea static.</p>
+
+<blockquote>
+  <p>sol<strong>.</strong>GestorBD<strong>.</strong>getPaginadorArticulos<strong>(… SI</strong></p>
+</blockquote>
+
+<h2 id="no-repetir-código-innecesariamente">No repetir código innecesariamente</h2>
+
+<p>Mirad este trozo de código:</p>
+
+<p><strong>&lt;%</strong></p>
+
+<p>GestorBD gbd = <strong>new</strong> GestorBD();</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>if</strong> (request.getParameter(“cart”) == null</td>
+      <td> </td>
+      <td>request.getParameter(“cart”).<strong>equals</strong>(“”)) {</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>response.sendRedirect(“index.html”);</p>
+
+<p>} <strong>else</strong> {</p>
+
+<p><strong>if</strong> (gbd.getArticulo(request.getParameter(“cart”)) == null) {</p>
+
+<p>response.sendRedirect(“error.jsp?msg=” + URLEncoder.encode(“El artículo no existe”, “UTF-8”));</p>
+
+<p>} <strong>else</strong> {</p>
+
+<p>Articulo a = gbd.getArticulo(request.getParameter(“cart”));</p>
+
+<p><strong>%&gt;</strong></p>
+
+<p>O este otro</p>
+
+<p><strong>&lt;%</strong></p>
+
+<p>Paginador paginador = GestorBD2.getPaginadorArticulos(Integer.parseInt(config.getInitParameter(“tamanioPagina”)));</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>if</strong> (request.getParameter(“p”) == null</td>
+      <td> </td>
+      <td>request.getParameter(“p”).trim().length() == 0</td>
+      <td> </td>
+      <td>Integer.parseInt(request.getParameter(“p”)) &lt; 1) {</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>response.sendRedirect(“catalogo.jsp?p=1”);</p>
+
+<p><strong>return</strong>;</p>
+
+<p>}</p>
+
+<p><strong>if</strong> (Integer.parseInt(request.getParameter(“p”)) &gt; paginador.getNumPaginas()) {</p>
+
+<p>response.sendRedirect(“catalogo.jsp?p=” + paginador.getNumPaginas());</p>
+
+<p><strong>return</strong>;</p>
+
+<p>}</p>
+
+<p>int pag = Integer.parseInt(request.getParameter(“p”));</p>
+
+<p>List&lt;Articulo&gt; articulos = GestorBD.getArticulos(pag, Integer.parseInt(config.getInitParameter(“tamanioPagina”)));</p>
+
+<p>…</p>
+
+<p><strong>%&gt;</strong></p>
+
+<p>Además de otros “fallos” que ya he comentado en otros apartados, he subrayado las veces que se repiten las instrucciones Integer.parseInt, config.getInitParameter y request.getParameter. Estas repeticiones acarrean estos problemas:</p>
+
+<ul>
+  <li>
+    <p>Ineficiencia. Aunque sea poco el tiempo de ejecución asociado a la lectura de un parámetro de la queyString, o a la conversión de una cadena en entero, no nos podemos permitir el lujo de repetir tantas veces la ejecución de estos métodos. Es tiempo perdido innecesariamente. Especialmente grave es la repetición de gbd.getArticulo, ya que implica repetir una consulta a la BD.</p>
+  </li>
+  <li>
+    <p>El código es más difícil de leer</p>
+  </li>
+  <li>
+    <p>El código es más difícil de escribir</p>
+  </li>
+</ul>
+
+<p>Ejecutad una única vez esas operaciones, usad variables para almacenar el resultado y utilizad esas variables en el programa. Más claro, y más eficiente, es algo así:</p>
+
+<p><strong>&lt;%</strong></p>
+
+<p>int tamPag = Integer.parseInt(config.getInitParameter(“tamanioPagina”));</p>
+
+<p>Paginador paginador = GestorBD2.getPaginadorArticulos(tamPag);</p>
+
+<p><strong>String</strong> ps = request.getParameter(“p”);</p>
+
+<p>int pag = 1;</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>if</strong> (ps == null</td>
+      <td> </td>
+      <td>ps.trim().length() == 0) {</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>response.sendRedirect(“catalogo.jsp?p=1”);</p>
+
+<p><strong>return</strong>;</p>
+
+<p>} <strong>else</strong> {</p>
+
+<p><strong>try</strong> {</p>
+
+<p>pag = Integer.parseInt(ps);</p>
+
+<p>} <strong>catch</strong> (NumberFormaException ex) {}</p>
+
+<p>}</p>
+
+<p><strong>if</strong> (pag &lt; 1) {</p>
+
+<p>response.sendRedirect(“catalogo.jsp?p=1”);</p>
+
+<p><strong>return</strong>;</p>
+
+<p>}</p>
+
+<p><strong>if</strong> (pag &gt; paginador.getNumPaginas()) {</p>
+
+<p>response.sendRedirect(“catalogo.jsp?p=” + paginador.getNumPaginas());</p>
+
+<p><strong>return</strong>;</p>
+
+<p>}</p>
+
+<p>List&lt;Articulo&gt; articulos = GestorBD.getArticulos(pag, tamPag);</p>
+
+<p>…</p>
+
+<p><strong>%&gt;</strong></p>
+
+<h1 id="jsp--html">JSP / HTML</h1>
+
+<h2 id="contenidos-de-los-ficheros-auxiliares-de-cabecera-y-el-pie">Contenidos de los ficheros auxiliares de cabecera y el pie</h2>
+
+<p>Estos ficheros deben contener solamente lo siguiente:</p>
+
+<p><strong>Cabecera</strong></p>
+
+<p>&lt;div class=<strong>“logo”</strong>&gt;&lt;a href=<strong>“index.html”</strong>&gt;&lt;img src=<strong>“img/LogoElectrosa200.png”</strong> border=<strong>“0”</strong>&gt;&lt;/a&gt;&lt;/div&gt;</p>
+
+<p>&lt;div class=<strong>“sombra”</strong>&gt;</p>
+
+<p><strong>  …</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&lt;div class=<strong>“barra_menus”</strong>&gt;</p>
+
+<p><strong>  …</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p><strong>Pie</strong>:</p>
+
+<p>&lt;div class=<strong>“pie”</strong>&gt;</p>
+
+<p><strong>  …</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p><strong>MUY IMPORTANTE:</strong></p>
+
+<p>No deben contener ni &lt;!DOCTYPE html&gt;, &lt;html&gt; ni &lt;head&gt; ni &lt;body&gt;.</p>
+
+<p>Pensad qué pasaría si contuviesen esas etiquetas (o alguna o algunas de ellas). Es decir, si la cabecera fuese, por ejemplo:</p>
+
+<p><strong>&lt;!DOCTYPE html&gt;</strong></p>
+
+<p>&lt;html&gt;</p>
+
+<p>&lt;body&gt;</p>
+
+<p>&lt;div class=<strong>“logo”</strong>&gt;&lt;a href=<strong>“index.html”</strong>&gt;&lt;img src=<strong>“img/LogoElectrosa200.png”</strong> border=<strong>“0”</strong>&gt;&lt;/a&gt;&lt;/div&gt;</p>
+
+<p>&lt;div class=<strong>“sombra”</strong>&gt;</p>
+
+<p><strong>…</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&lt;div class=<strong>“barra_menus”</strong>&gt;</p>
+
+<p><strong>…</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+
+<p>Al incluir este fichero en un JSP, por ejemplo como este:</p>
+
+<p><strong>&lt;%@</strong>page contentType=”text/html” pageEncoding=”UTF-8”<strong>%&gt;</strong></p>
+
+<p><strong>&lt;!DOCTYPE html&gt;</strong></p>
+
+<p>&lt;html&gt;</p>
+
+<p>&lt;head&gt;</p>
+
+<p>&lt;meta http-equiv=<strong>“Content-Type”</strong> content=<strong>“text/html; charset=UTF-8”</strong>&gt;</p>
+
+<p>&lt;title&gt;<strong>JSP Page</strong>&lt;/title&gt;</p>
+
+<p>&lt;/head&gt;</p>
+
+<p>&lt;body&gt;</p>
+
+<p><strong>&lt;%@</strong> include file=’cabecera.html’<strong>%&gt;</strong></p>
+
+<p>&lt;div class=<strong>“sombra”</strong>&gt;</p>
+
+<p>&lt;div class=<strong>“nucleo”</strong>&gt;<strong>…</strong> &lt;/div&gt;</p>
+
+<p><strong>…</strong></p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+
+<p>El resultado del procesamiento sería:</p>
+
+<p><strong>&lt;!DOCTYPE html&gt;</strong></p>
+
+<p>&lt;html&gt;</p>
+
+<p>&lt;head&gt;</p>
+
+<p>&lt;meta http-equiv=<strong>“Content-Type”</strong> content=<strong>“text/html; charset=UTF-8”</strong>&gt;</p>
+
+<p>&lt;title&gt;<strong>JSP Page</strong>&lt;/title&gt;</p>
+
+<p>&lt;/head&gt;</p>
+
+<p>&lt;body&gt;</p>
+
+<p><strong>&lt;!DOCTYPE html&gt;</strong></p>
+
+<p>&lt;html&gt;</p>
+
+<p>&lt;body&gt;</p>
+
+<p>&lt;div class=<strong>“logo”</strong>&gt;&lt;a href=<strong>“index.html”</strong>&gt;&lt;img src=<strong>“img/LogoElectrosa200.png”</strong> border=<strong>“0”</strong>&gt;&lt;/a&gt;&lt;/div&gt;</p>
+
+<p>&lt;div class=<strong>“sombra”</strong>&gt;</p>
+
+<p><strong>…</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&lt;div class=<strong>“barra_menus”</strong>&gt;</p>
+
+<p><strong>…</strong></p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+
+<p>&lt;div class=<strong>“sombra”</strong>&gt;</p>
+
+<p>&lt;div class=<strong>“nucleo”</strong>&gt;<strong>…</strong> &lt;/div&gt;</p>
+
+<p><strong>…</strong></p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+
+<p>Fijaos en que, en medio del cuerpo de la página resultante aparece un &lt;!DOCTYPE html&gt; y un &lt;html&gt; y un &lt;body&gt;, lo cual es obviamente erróneo.</p>
+
+<h2 id="usar-cabecera-y-pie-en-todas-las-páginas-jsp">Usar cabecera y pie en todas las páginas JSP</h2>
+
+<p>Bastantes de vosotros habéis usado las directivas de inclusión de cabecera y pie sólo en la página de catalogo.jsp. Hay que usarlas en todas las páginas JSP de la aplicación.</p>
+
+<h2 id="usar-jspusebean-de-forma-consistente">Usar &lt;jsp:useBean de forma consistente</h2>
+
+<p>Aunque no lo habéis hecho todos, está bien que hayáis usado jsp:useBean para crear un objeto GestorBD en el scope application para evitar crear objetos en scriptlets. Es decir:</p>
+
+<p>EVITAR:</p>
+
+<p><strong>&lt;%</strong></p>
+
+<p>GestorBD gbd = <strong>new</strong> GestorBD();</p>
+
+<p><strong>%&gt;</strong></p>
+
+<p>USAR:</p>
+
+<p>&lt;jsp:useBean id=”gbd” class=”paw.bd.GestorBD” scope=”application”&gt;&lt;/jsp:useBean&gt;</p>
+
+<p>Pero sirve de poco hacerlo sólo en una única página. Lo que tenéis que hacer es usar jsp:useBean siempre. Así estaréis optimizando memoria porque creáis un único objeto GestorBD para toda la aplicación. Como los objetos de esta clase no tienen estado, no hay peligro en hacerlo. Para que la optimización sea máxima, el scope usado en jsp:useBean debe ser application.</p>
+
+<h2 id="redirección-ante-errores-de-paginación">Redirección ante errores de paginación</h2>
+
+<p>Algunos de vosotros habéis programado a medias la validación de las peticiones de cambio de página en catalogo.jsp. Habéis comprobado que el parámetro de la página pueda convertirse a un entero, y que éste esté entre 1 y el número total de páginas, y habéis corregido el valor en caso contrario, mostrando la información correspondiente a la página corregida. Pero eso no es suficiente ya que, ante una petición de página “-10” mostrarías información correcta de la página 1, pero la barra de direcciones indicaría que la página es la -10.</p>
+
+<p>Lo que hay que enviar una respuesta de redirección al navegador para que vuelva a hacer la petición con el número de página corregido. Esta es la única manera de hacer que la dirección mostrada en la barra de direcciones del navegador corresponda con la información visualizada en la página.</p>
+
+<h2 id="comprobar-el-mensaje-en-la-página-de-error">Comprobar el mensaje en la página de error</h2>
+
+<p>Casi nadie ha comprobado que el valor del parámetro con el mensaje de error no sea vacío, asignándole un mensaje por defecto si eso ocurre. Esto sería lo correcto:</p>
+
+<p><strong>&lt;%</strong></p>
+
+<p><strong>String</strong> msg = request.getParameter(“msg”);</p>
+
+<p><strong>if</strong> (UtilesString.isVacia(msg))</p>
+
+<p>msg = “Error de aplicación”;</p>
+
+<p><strong>%&gt;</strong></p>
+
+<p>&lt;div class=<strong>“error”</strong>&gt;<strong>&lt;%=</strong> msg<strong>%&gt;</strong>&lt;/div&gt;</p>
+
+  </div><a class="u-url" href="/paw/2022/05/12/Aspectos-a-mejorar-en-el-c%C3%B3digo-de-la-pr%C3%A1ctica.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/paw/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/paw/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/paw/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Mi primer blog con fastpages</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" target="_blank" title="fastai"><svg class="svg-icon grey"><use xlink:href="/paw/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" target="_blank" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/paw/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
